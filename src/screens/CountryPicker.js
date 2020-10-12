@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { getCountry } from "react-native-localize";
 import { Text, LegendField } from '../elements';
 import { Styles, Colors } from '../styles';
 import { __ } from "../localization"
