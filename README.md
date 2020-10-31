@@ -10,7 +10,9 @@
 ## Getting started
 
 `$ npm install react-native-country-picker --save`
+<space><space>
 OR
+<space><space>
 `$ yarn add react-native-country-picker `
 
 
