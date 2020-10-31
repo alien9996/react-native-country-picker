@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { getCountry } from "react-native-localize";
 import { Styles, Colors } from '../styles';
-import dataCountry from "../constants/countries.json"
+import dataCountry from "../constants/countries.json";
+import { DialogCountry } from '../components';
 
 export const CountryPicker = (props) => {
 
     const [callingCode, setCallingCode] = useState("1");
     const [flag, setFlag] = useState("🇺🇸");
     const [countryName, setCountryName] = useState("United States");
+    const [showCountryPicker, setShowCountryPicker] = useState(false);
 
     const {
         onSelectCountry,
@@ -19,6 +21,10 @@ export const CountryPicker = (props) => {
         showFlag = true,
         showCallingCode = true,
         showCountryName = true,
+
+        title,
+        searchPlaceholder,
+        textEmpty
     } = props;
 
     useEffect(() => {
@@ -57,26 +63,32 @@ export const CountryPicker = (props) => {
     const onSelect = (data) => {
         const { callingCode, emoji, name } = data;
         setFlag(emoji);
-        onSelectCountry(data);
+        onSelectCountry && onSelectCountry(data);
         setCallingCode(callingCode ? callingCode : "1");
         setCountryName(name);
     }
 
-    const showCountryPicker = () => {
-        window.showCountryPicker((data) => onSelect(data));
-    }
-
     return (
-        <TouchableOpacity
-            onPress={!disable ? () => showCountryPicker() : () => { }}
-            style={[Styles.justifyContent, border && { borderBottomWidth: 1, }, style]}
-        >
-            <View style={[Styles.justifyContent]}>
-                {showFlag && <Text style={styles.flagStyle}>{flag}</Text>}
-                {showCallingCode && <Text style={styles.callingCodeStyle}>+{callingCode}</Text>}
-                {showCountryName && <Text style={styles.txtCountryName}>{countryName}</Text>}
-            </View>
-        </TouchableOpacity>
+        <View>
+            <TouchableOpacity
+                onPress={!disable ? () => setShowCountryPicker(true) : () => { }}
+                style={[Styles.justifyContent, border && { borderBottomWidth: 1, }, style]}
+            >
+                <View style={[Styles.justifyContent]}>
+                    {showFlag && <Text style={styles.flagStyle}>{flag}</Text>}
+                    {showCallingCode && <Text style={styles.callingCodeStyle}>+{callingCode}</Text>}
+                    {showCountryName && <Text style={styles.txtCountryName}>{countryName}</Text>}
+                </View>
+            </TouchableOpacity>
+            <DialogCountry
+                showCountryPicker={showCountryPicker}
+                onSelectItem={(data) => { onSelect(data) }}
+                showCallingCode={showCallingCode}
+                title={title}
+                searchPlaceholder={searchPlaceholder}
+                textEmpty={textEmpty}
+            />
+        </View>
     );
 };
 

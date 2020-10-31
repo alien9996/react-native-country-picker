@@ -7,29 +7,30 @@ import {
     FlatList,
     Platform,
     TextInput,
-    Modal,
     Text
 } from 'react-native';
 import Fuse from 'fuse.js'
 import { Colors, Styles } from "../styles";
 import { getStatusBarHeight } from "react-native-status-bar-height";
-import data from "../constans/countries.json"
-import _ from "lodash";
-let delayFnc = () => { };
-const debounce = _.debounce(() => delayFnc(), 100);
+import data from "../constants/countries.json"
 
-let onSelectItem = () => { }
+export const DialogCountry = (props) => {
 
-export const DialogCountry = () => {
-    const [visible, setVisible] = useState(false);
+    const {
+        onSelectItem,
+        showCallingCode = true,
+        title = "Country",
+        searchPlaceholder = "Search",
+        textEmpty = "Empty data",
+        setVisible,
+        darkMode = true
+    } = props;
+
     const [search, setSearch] = useState("");
     const [listCountry, setListCountry] = useState(data);
-    const [model, setModel] = useState({});
-
-    const { title, searchPlaceholder, textEmpty, showCallingCode = true } = model;
 
     useEffect(() => {
-        showComponent();
+        StatusBar.setHidden(true);
         return () => {
             setVisible(false);
             setSearch("");
@@ -58,26 +59,6 @@ export const DialogCountry = () => {
         options
     );
 
-
-    function showComponent() {
-        window.showCountryPicker = (
-            onSelect,
-            showCallingCode = true,
-            title = "Country",
-            searchPlaceholder = "Search",
-            textEmpty = "Empty data"
-        ) => {
-            setModel({
-                title,
-                searchPlaceholder,
-                textEmpty,
-                showCallingCode
-            })
-            onSelectItem = onSelect;
-            setVisible(true);
-            StatusBar.setHidden(true);
-        };
-    }
     const onSelect = (item) => {
         setSearch("");
         handleFilterChange("");
@@ -86,11 +67,10 @@ export const DialogCountry = () => {
         setVisible(false)
     }
 
-
     const renderItemTemplate = ({ name, emoji, code, callingCode }) => {
         return (
             <View style={styles.item}>
-                <Text style={{ fontSize: Platform.OS === 'ios' ? 28 : 20, lineHeight: 30 }}>{emoji}</Text>
+                <Text style={styles.flag}>{emoji}</Text>
                 <Text style={styles.currencyName}>{code}</Text>
                 <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}]}>{name}</Text>
                 {showCallingCode && <Text style={styles.commonCallingCode}>{`+${callingCode}`}</Text>}
@@ -110,67 +90,60 @@ export const DialogCountry = () => {
     const handleFilterChange = (value) => {
         setSearch(value);
 
-        delayFnc = async () => {
-            let listDataFilter = [];
-            if (value === "") {
-                listDataFilter = data;
-            } else {
-                const filteredCountries = fuse.search(value)
-                if (_flatList) _flatList.scrollToOffset({ offset: 0 });
-                filteredCountries.forEach(n => {
-                    const item = data.filter(i => i.code === n.item.code.toString());
-                    if (item.length > 0) listDataFilter.push(item[0])
+        let listDataFilter = [];
+        if (value === "") {
+            listDataFilter = data;
+        } else {
+            const filteredCountries = fuse.search(value)
+            if (_flatList) _flatList.scrollToOffset({ offset: 0 });
+            filteredCountries.forEach(n => {
+                const item = data.filter(i => i.code === n.item.code.toString());
+                if (item.length > 0) listDataFilter.push(item[0])
 
-                })
-            }
-            setListCountry(listDataFilter);
+            })
         }
-        debounce();
+        setListCountry(listDataFilter);
     }
 
     return (
-        <Modal
-            visible={visible}
-        >
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.titleModal}>{title}</Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setVisible(false);
-                            setSearch("");
-                            handleFilterChange("");
-                            StatusBar.setHidden(false);
-                        }}
-                        style={styles.searchClose}>
-                        <Text>X</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.search}>
-                    <View style={styles.textInputContainer}>
-                        <TextInput
-                            autoFocus
-                            onChangeText={(text) => handleFilterChange(text)}
-                            value={search}
-                            placeholder={searchPlaceholder}
-                            placeholderTextColor={Colors.textFieldColor}
-                            style={[styles.textTitleSmallerWhite, styles.textInput]}
-                        />
-                    </View>
-                </View>
-                <View style={{ backgroundColor: Colors.backgroundCurrency }}>
-                    <FlatList
-                        keyboardShouldPersistTaps={'handled'}
-                        ref={(ref) => _flatList = ref}
-                        data={listCountry}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.code}
-                        ListEmptyComponent={() => <View style={styles.listNullContainer}>
-                            <Text >{textEmpty}</Text>
-                        </View>} />
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.titleModal}>{title}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        setVisible(false);
+                        setSearch("");
+                        handleFilterChange("");
+                        StatusBar.setHidden(false);
+                    }}
+                    style={styles.searchClose}>
+                    <Text style={styles.btnClose}>X</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.search}>
+                <View style={styles.textInputContainer}>
+                    <TextInput
+                        autoFocus
+                        onChangeText={(text) => handleFilterChange(text)}
+                        value={search}
+                        placeholder={searchPlaceholder}
+                        placeholderTextColor={Colors.textFieldColor}
+                        style={[styles.textTitleSmallerWhite, styles.textInput]}
+                    />
                 </View>
             </View>
-        </Modal>
+            <View style={{ backgroundColor: Colors.backgroundCurrency }}>
+                <FlatList
+                    keyboardShouldPersistTaps={'handled'}
+                    ref={(ref) => _flatList = ref}
+                    data={listCountry}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.code}
+                    ListEmptyComponent={() => <View style={styles.listNullContainer}>
+                        <Text style={styles.txtEmpty}>{textEmpty}</Text>
+                    </View>} />
+            </View>
+        </View>
     );
 }
 
@@ -256,4 +229,18 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         color: Colors.white,
     },
+    btnClose: {
+        color: Colors.white,
+        fontSize: 20
+    },
+    txtEmpty: {
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: "500"
+    },
+    flag: {
+        fontSize: Platform.OS === 'ios' ? 28 : 20,
+        lineHeight: 30,
+        color: Colors.black
+    }
 });
