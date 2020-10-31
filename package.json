@@ -1,5 +1,5 @@
 {
-  "name": "react-native-country-picker",
+  "name": "react-native-region-country-picker",
   "version": "1.0.1",
   "author": "Alien",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "IOS",
     "library",
     "country",
-    "picker"
+    "picker",
+    "country-picker"
   ],
   "repository": {
     "type": "git",
