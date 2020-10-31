@@ -9,6 +9,10 @@ node_modules/
 npm-debug.log
 yarn-error.log
   
+# Runtime data
+tmp
+build
+dist
 
 # Xcode
 #
