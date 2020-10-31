@@ -8,7 +8,7 @@ const DEFAULT_OPTIONS = {
     showCountryName = true,
 }
 
-export const CountryPicker = (props) => {
+export default CountryPicker = (props) => {
 
     const propsModel = {
         ...DEFAULT_OPTIONS,
@@ -19,4 +19,3 @@ export const CountryPicker = (props) => {
         <CountryPickerComponent {...propsModel} />
     );
 }
-
