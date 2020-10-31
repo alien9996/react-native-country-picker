@@ -1,5 +1,5 @@
 
-# react-native-country-picker
+# react-native-region-country-picker
 
 **Various image filters** for **iOS** and **Android**
 
@@ -9,9 +9,9 @@
 
 ## Getting started
 
-`$ npm install react-native-country-picker --save`
+`$ npm install react-native-region-country-picker --save`
 <space><space> OR <space><space>
-`$ yarn add react-native-country-picker`
+`$ yarn add react-native-region-country-picker`
 
 
 ## Example
