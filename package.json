@@ -1,7 +1,10 @@
 {
-  "name": "react-native-react-native-country-picker",
+  "name": "react-native-country-picker",
   "version": "1.0.0",
-  "description": "",
+  "author": "Alien",
+  "license": "MIT",
+  "description": "React native library image processing",
+  "private": false,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +12,14 @@
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alien9996/react-native-country-picker"
+  },
+  "bugs": {
+    "url": "https://github.com/alien9996/react-native-country-picker/issues"
+  },
+  "homepage": "https://github.com/alien9996/react-native-country-picker#readme",
   "peerDependencies": {
     "react-native": "^0.41.2",
     "react-native-windows": "0.41.0-rc.1"
@@ -19,5 +28,8 @@
     "fuse.js": "^6.4.1",
     "react-native-localize": "^1.4.2",
     "react-native-status-bar-height": "^2.5.0"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.63.0"
   }
 }
