@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Modal } from 'react-native';
 import { getCountry } from "react-native-localize";
 import { Styles, Colors } from '../styles';
 import dataCountry from "../constants/countries.json";
@@ -10,13 +10,12 @@ export const CountryPicker = (props) => {
     const [callingCode, setCallingCode] = useState("1");
     const [flag, setFlag] = useState("🇺🇸");
     const [countryName, setCountryName] = useState("United States");
-    const [showCountryPicker, setShowCountryPicker] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     const {
         onSelectCountry,
         style,
         countryCode,
-        disable = false,
         border = false,
         showFlag = true,
         showCallingCode = true,
@@ -71,8 +70,8 @@ export const CountryPicker = (props) => {
     return (
         <View>
             <TouchableOpacity
-                onPress={!disable ? () => setShowCountryPicker(true) : () => { }}
-                style={[Styles.justifyContent, border && { borderBottomWidth: 1, }, style]}
+                onPress={() => setVisible(true)}
+                style={[Styles.justifyContent, border && { borderBottomWidth: 1 }, style]}
             >
                 <View style={[Styles.justifyContent]}>
                     {showFlag && <Text style={styles.flagStyle}>{flag}</Text>}
@@ -80,27 +79,35 @@ export const CountryPicker = (props) => {
                     {showCountryName && <Text style={styles.txtCountryName}>{countryName}</Text>}
                 </View>
             </TouchableOpacity>
-            <DialogCountry
-                showCountryPicker={showCountryPicker}
-                onSelectItem={(data) => { onSelect(data) }}
-                showCallingCode={showCallingCode}
-                title={title}
-                searchPlaceholder={searchPlaceholder}
-                textEmpty={textEmpty}
-            />
+            <Modal
+                visible={visible}
+            >
+                <DialogCountry
+                    onSelectItem={(data) => { onSelect(data) }}
+                    setVisible={(value) => { setVisible(value) }}
+                    showCallingCode={showCallingCode}
+                    title={title}
+                    searchPlaceholder={searchPlaceholder}
+                    textEmpty={textEmpty}
+                />
+            </Modal>
+
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     callingCodeStyle: {
-        fontSize: 16
+        fontSize: 16,
+        color: Colors.black
     },
     flagStyle: {
         marginRight: 5,
+        color: Colors.black
     },
     txtCountryName: {
         fontSize: 16,
-        color: Colors.black
+        color: Colors.black,
+        marginLeft: 10
     }
 });
