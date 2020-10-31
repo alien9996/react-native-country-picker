@@ -1,11 +1,12 @@
 import { CountryPicker as CountryPickerComponent } from "./src/screens"
+import React from "react";
 
 const DEFAULT_OPTIONS = {
-    onSelectCountry,
-    style,
-    showFlag = true,
-    showCallingCode = true,
-    showCountryName = true,
+    onSelectCountry: () => { },
+    style: {},
+    showFlag: true,
+    showCallingCode: true,
+    showCountryName: true,
 }
 
 export default CountryPicker = (props) => {

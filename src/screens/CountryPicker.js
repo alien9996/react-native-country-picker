@@ -31,7 +31,7 @@ export const CountryPicker = (props) => {
         }
 
         if (country) {
-            setTitle(country.name)
+            setCountryName(country.name)
             setFlag(country.emoji);
             setCallingCode(country.callingCode);
         }
