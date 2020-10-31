@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from "./colors";
-import { Fonts } from "./fonts";
 
 
 const { width, height } = Dimensions.get("window");
@@ -74,13 +73,6 @@ const commonStyles = {
     }
 }
 
-const textStyles = {
-    screenTitle: {
-        ...Fonts.textBig
-    }
-}
-
 export const Styles = StyleSheet.create({
-    ...commonStyles,
-    ...textStyles
+    ...commonStyles
 });
