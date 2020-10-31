@@ -98,8 +98,9 @@ export const DialogCountry = () => {
         );
     }
 
-    const renderItem = ({ item }) => {
-        return <TouchableOpacity onPress={() => onSelect(item)}>
+    const renderItem = ({ item, index }) => {
+        const isLastItem = listCountry.length - 1 === index;
+        return <TouchableOpacity style={{ marginBottom: isLastItem ? 150 : 0 }} onPress={() => onSelect(item)}>
             {renderItemTemplate(item)}
         </TouchableOpacity>
     }
