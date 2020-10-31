@@ -7,26 +7,16 @@ import {
     FlatList,
     Platform,
     TextInput,
-    Modal
+    Modal,
+    Text
 } from 'react-native';
 import Fuse from 'fuse.js'
 import { Colors, Styles } from "../styles";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import data from "../constans/countries.json"
-import { ZVectorIcons, Text } from "../elements";
 import _ from "lodash";
 let delayFnc = () => { };
 const debounce = _.debounce(() => delayFnc(), 100);
-
-const ItemTemplate = ({ name, emoji, code }) => {
-    return (
-        <View style={styles.item}>
-            <Text style={{ fontSize: Platform.OS === 'ios' ? 28 : 20, lineHeight: 30 }}>{emoji}</Text>
-            <Text style={styles.currencyName}>{code}</Text>
-            <Text style={styles.commonName}>{name}</Text>
-        </View>
-    );
-}
 
 let onSelectItem = () => { }
 
@@ -34,8 +24,9 @@ export const DialogCountry = () => {
     const [visible, setVisible] = useState(false);
     const [search, setSearch] = useState("");
     const [listCountry, setListCountry] = useState(data);
-    const maxHeight = 0.8;
-    const [height, setHeight] = useState(maxHeight);
+    const [model, setModel] = useState({});
+
+    const { title, searchPlaceholder, textEmpty, showCallingCode = true } = model;
 
     useEffect(() => {
         showComponent();
@@ -69,7 +60,19 @@ export const DialogCountry = () => {
 
 
     function showComponent() {
-        window.showCountryPicker = (onSelect) => {
+        window.showCountryPicker = (
+            onSelect,
+            showCallingCode = true,
+            title = "Country",
+            searchPlaceholder = "Search",
+            textEmpty = "Empty data"
+        ) => {
+            setModel({
+                title,
+                searchPlaceholder,
+                textEmpty,
+                showCallingCode
+            })
             onSelectItem = onSelect;
             setVisible(true);
             StatusBar.setHidden(true);
@@ -82,15 +85,28 @@ export const DialogCountry = () => {
         if (onSelectItem) onSelectItem(item);
         setVisible(false)
     }
+
+
+    const renderItemTemplate = ({ name, emoji, code, callingCode }) => {
+        return (
+            <View style={styles.item}>
+                <Text style={{ fontSize: Platform.OS === 'ios' ? 28 : 20, lineHeight: 30 }}>{emoji}</Text>
+                <Text style={styles.currencyName}>{code}</Text>
+                <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}]}>{name}</Text>
+                {showCallingCode && <Text style={styles.commonCallingCode}>{`+${callingCode}`}</Text>}
+            </View>
+        );
+    }
+
     const renderItem = ({ item }) => {
         return <TouchableOpacity onPress={() => onSelect(item)}>
-            <ItemTemplate {...item} />
+            {renderItemTemplate(item)}
         </TouchableOpacity>
     }
 
     let _flatList = undefined;
 
-    const handleFilterChange = value => {
+    const handleFilterChange = (value) => {
         setSearch(value);
 
         delayFnc = async () => {
@@ -99,10 +115,9 @@ export const DialogCountry = () => {
                 listDataFilter = data;
             } else {
                 const filteredCountries = fuse.search(value)
-
                 if (_flatList) _flatList.scrollToOffset({ offset: 0 });
-                filteredCountries.map(n => {
-                    const item = data.filter(i => i.code === n.toString());
+                filteredCountries.forEach(n => {
+                    const item = data.filter(i => i.code === n.item.code.toString());
                     if (item.length > 0) listDataFilter.push(item[0])
 
                 })
@@ -118,7 +133,7 @@ export const DialogCountry = () => {
         >
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.titleModal}>{"Country"}</Text>
+                    <Text style={styles.titleModal}>{title}</Text>
                     <TouchableOpacity
                         onPress={() => {
                             setVisible(false);
@@ -127,7 +142,7 @@ export const DialogCountry = () => {
                             StatusBar.setHidden(false);
                         }}
                         style={styles.searchClose}>
-                        <ZVectorIcons Feather size={30} color={Colors.white} name="x" />
+                        <Text>X</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.search}>
@@ -136,11 +151,9 @@ export const DialogCountry = () => {
                             autoFocus
                             onChangeText={(text) => handleFilterChange(text)}
                             value={search}
-                            placeholder={"Search"}
+                            placeholder={searchPlaceholder}
                             placeholderTextColor={Colors.textFieldColor}
                             style={[styles.textTitleSmallerWhite, styles.textInput]}
-                            onFocus={() => setHeight(0.4)}
-                            onBlur={() => setHeight(maxHeight)}
                         />
                     </View>
                 </View>
@@ -152,7 +165,7 @@ export const DialogCountry = () => {
                         renderItem={renderItem}
                         keyExtractor={item => item.code}
                         ListEmptyComponent={() => <View style={styles.listNullContainer}>
-                            <Text >{"Empty data"}</Text>
+                            <Text >{textEmpty}</Text>
                         </View>} />
                 </View>
             </View>
@@ -192,6 +205,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         fontSize: 14
     },
+    commonCallingCode: {
+        color: Colors.silver,
+        marginBottom: Platform.OS === "ios" ? 5 : 0,
+        marginLeft: 20,
+        fontSize: 14,
+        flex: 1,
+        textAlign: "right"
+    },
     search: {
         height: 40,
         justifyContent: "center",
@@ -201,7 +222,7 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         borderRadius: 7,
-        backgroundColor: "#0c1f40",
+        backgroundColor: Colors.blueZodiac,
         flex: 1,
         justifyContent: "center",
     },

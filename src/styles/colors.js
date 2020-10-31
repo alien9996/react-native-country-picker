@@ -31,6 +31,9 @@ export const Colors = {
     whisper: "#EAE9F4",
     trendyPink: "#8B759C",
     alto: "#E0E0E0",
+    backgroundCurrency: "#2D4369",
+    textFieldColor: "#9fa5aa",
+    blueZodiac: "#0c1f40",
 
     //status color
     cinnabar: "#e94335",

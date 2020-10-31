@@ -1,6 +1,22 @@
+import { CountryPicker as CountryPickerComponent } from "./src/screens"
 
-import { NativeModules } from 'react-native';
+const DEFAULT_OPTIONS = {
+    onSelectCountry,
+    style,
+    showFlag = true,
+    showCallingCode = true,
+    showCountryName = true,
+}
 
-const { RNReactNativeCountryPicker } = NativeModules;
+export const CountryPicker = (props) => {
 
-export default RNReactNativeCountryPicker;
+    const propsModel = {
+        ...DEFAULT_OPTIONS,
+        ...props
+    }
+
+    return (
+        <CountryPickerComponent {...propsModel} />
+    );
+}
+

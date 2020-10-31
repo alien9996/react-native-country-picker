@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { getCountry } from "react-native-localize";
-import { Text, LegendField } from '../elements';
 import { Styles, Colors } from '../styles';
-import { __ } from "../localization"
 import dataCountry from "../constants/countries.json"
 
 export const CountryPicker = (props) => {
 
-    const [callingCode, setCallingCode] = useState("84");
-    const [flag, setFlag] = useState("🇻🇳");
-    const [title, setTitle] = useState(undefined);
+    const [callingCode, setCallingCode] = useState("1");
+    const [flag, setFlag] = useState("🇺🇸");
+    const [countryName, setCountryName] = useState("United States");
+
     const {
         onSelectCountry,
         style,
-        showCallingCode = true,
         countryCode,
         disable = false,
         border = false,
         showFlag = true,
-        showCountryName = false
+        showCallingCode = true,
+        showCountryName = true,
     } = props;
 
     useEffect(() => {
@@ -56,10 +55,11 @@ export const CountryPicker = (props) => {
     }
 
     const onSelect = (data) => {
-        const { callingCode, emoji } = data;
+        const { callingCode, emoji, name } = data;
         setFlag(emoji);
         onSelectCountry(data);
         setCallingCode(callingCode ? callingCode : "1");
+        setCountryName(name);
     }
 
     const showCountryPicker = () => {
@@ -67,35 +67,20 @@ export const CountryPicker = (props) => {
     }
 
     return (
-        !showCountryName ? <TouchableOpacity
+        <TouchableOpacity
             onPress={!disable ? () => showCountryPicker() : () => { }}
-            style={[Styles.justifyContent, styles.container, border && { borderBottomWidth: 1, }, style]}
+            style={[Styles.justifyContent, border && { borderBottomWidth: 1, }, style]}
         >
-            {/* <ZText style={[Styles.textInput, titleStyle]}>{titleStyle ? __("AREA_CODE") : title}</ZText> */}
             <View style={[Styles.justifyContent]}>
                 {showFlag && <Text style={styles.flagStyle}>{flag}</Text>}
                 {showCallingCode && <Text style={styles.callingCodeStyle}>+{callingCode}</Text>}
+                {showCountryName && <Text style={styles.txtCountryName}>{countryName}</Text>}
             </View>
         </TouchableOpacity>
-            : <LegendField title={__("COUNTRY")} style={{ paddingVertical: 8 }}>
-                <TouchableOpacity
-                    onPress={!disable ? () => showCountryPicker() : () => { }}
-                    style={Styles.justifyContent}
-                >
-                    <Text style={styles.txtCountryName}>{title}</Text>
-                    <Text style={styles.flagStyle}>{flag}</Text>
-                </TouchableOpacity>
-            </LegendField>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        // marginTop: 30,
-        // paddingVertical: 10,
-        // borderBottomWidth: 0,
-        // borderBottomColor: Colors.silver,
-    },
     callingCodeStyle: {
         fontSize: 16
     },
@@ -104,6 +89,6 @@ const styles = StyleSheet.create({
     },
     txtCountryName: {
         fontSize: 16,
-        color: Colors.carnation
+        color: Colors.black
     }
 });
