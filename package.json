@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "author": "Alien",
   "license": "MIT",
-  "description": "React native library image processing",
+  "description": "React native library country picker",
   "private": false,
   "main": "index.js",
   "scripts": {
