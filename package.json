@@ -1,6 +1,6 @@
 {
   "name": "react-native-region-country-picker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Alien",
   "license": "MIT",
   "description": "React native library country picker",
@@ -15,6 +15,7 @@
     "IOS",
     "library",
     "country",
+    "region",
     "picker",
     "country-picker"
   ],
