@@ -20,6 +20,7 @@ export const CountryPicker = (props) => {
         showFlag = true,
         showCallingCode = true,
         showCountryName = true,
+        darkMode = true,
 
         title,
         searchPlaceholder,
@@ -89,6 +90,7 @@ export const CountryPicker = (props) => {
                     title={title}
                     searchPlaceholder={searchPlaceholder}
                     textEmpty={textEmpty}
+                    darkMode={darkMode}
                 />
             </Modal>
 

@@ -7,6 +7,7 @@ const DEFAULT_OPTIONS = {
     showFlag: true,
     showCallingCode: true,
     showCountryName: true,
+    darkMode: true
 }
 
 export default CountryPicker = (props) => {

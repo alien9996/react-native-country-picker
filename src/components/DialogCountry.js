@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import {
     View,
     TouchableOpacity,
-    StyleSheet,
     StatusBar,
     FlatList,
-    Platform,
     TextInput,
     Text
 } from 'react-native';
 import Fuse from 'fuse.js'
-import { Colors, Styles } from "../styles";
-import { getStatusBarHeight } from "react-native-status-bar-height";
+import { Colors } from "../styles";
 import data from "../constants/countries.json"
+import { getStyles } from "./styles"
 
 export const DialogCountry = (props) => {
 
@@ -36,6 +34,8 @@ export const DialogCountry = (props) => {
             setSearch("");
         };
     }, []);
+
+    const styles = getStyles(darkMode);
 
     const options = Object.assign({
         shouldSort: true,
@@ -132,7 +132,7 @@ export const DialogCountry = (props) => {
                     />
                 </View>
             </View>
-            <View style={{ backgroundColor: Colors.backgroundCurrency }}>
+            <View style={styles.listContainer}>
                 <FlatList
                     keyboardShouldPersistTaps={'handled'}
                     ref={(ref) => _flatList = ref}
@@ -146,101 +146,3 @@ export const DialogCountry = (props) => {
         </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: getStatusBarHeight(),
-        backgroundColor: Colors.backgroundCurrency,
-        height: Styles.window.height
-    },
-    title: {
-        fontSize: 18,
-        color: Colors.white,
-        fontWeight: "700"
-    },
-    item: {
-        flexDirection: "row",
-        paddingVertical: 15,
-        alignItems: "center",
-        paddingHorizontal: 25
-    },
-    currencyName: {
-        color: Colors.white,
-        fontWeight: "bold",
-        textAlign: "center",
-        width: 100,
-        fontSize: 16,
-        marginBottom: Platform.OS === "ios" ? 5 : 0
-    },
-    commonName: {
-        color: Colors.athensGray,
-        marginBottom: Platform.OS === "ios" ? 5 : 0,
-        marginHorizontal: 20,
-        fontSize: 14
-    },
-    commonCallingCode: {
-        color: Colors.silver,
-        marginBottom: Platform.OS === "ios" ? 5 : 0,
-        marginLeft: 20,
-        fontSize: 14,
-        flex: 1,
-        textAlign: "right"
-    },
-    search: {
-        height: 40,
-        justifyContent: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: 20,
-    },
-    textInputContainer: {
-        borderRadius: 7,
-        backgroundColor: Colors.blueZodiac,
-        flex: 1,
-        justifyContent: "center",
-    },
-    textTitleSmallerWhite: {
-        fontSize: 16,
-        fontWeight: "500",
-        color: Colors.white
-    },
-    textInput: {
-        padding: 10,
-        flex: 1
-    },
-    searchClose: {
-        alignItems: "flex-end",
-        marginLeft: 10
-    },
-    listNullContainer: {
-        ...Styles.center,
-        marginTop: 50
-    },
-    header: {
-        ...Styles.justifyContent,
-        alignItems: "center",
-        marginHorizontal: 5,
-        marginBottom: 10,
-        marginHorizontal: 20
-    },
-    titleModal: {
-        fontSize: 24,
-        fontWeight: "600",
-        color: Colors.white,
-    },
-    btnClose: {
-        color: Colors.white,
-        fontSize: 20
-    },
-    txtEmpty: {
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: "500"
-    },
-    flag: {
-        fontSize: Platform.OS === 'ios' ? 28 : 20,
-        lineHeight: 30,
-        color: Colors.black
-    }
-});

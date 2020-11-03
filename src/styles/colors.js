@@ -1,7 +1,6 @@
 export const Colors = {
     transparent: "transparent",
     //----------------------------
-    blueZodiac: "#0C0F38",
     carnation: "#F45B55",
     bittersweet: "#FF6A6B",
     silver: "#BDBDBD",
@@ -42,7 +41,29 @@ export const Colors = {
     fireBush: "#e69038",
     jade: "#00b050",
     chateauGreen: "#35A854",
+    codGray: "#1A1A1A",
+    mercury: "#e6e6e6",
 
     // name color by hex: ~> http://chir.ag/projects/name-that-color/#FFFFFF
 
 };
+
+export const ColorDarkMode = {
+    flagColor: Colors.black,
+    txtCountryCode: Colors.white,
+    txtCountryName: Colors.athensGray,
+    txtCallingCode: Colors.silver,
+    txtTitleModal: Colors.white,
+    backgroundModal: Colors.backgroundCurrency,
+    backgroundInput: Colors.blueZodiac,
+}
+
+export const ColorLightMode = {
+    flagColor: Colors.black,
+    txtCountryCode: Colors.black,
+    txtCountryName: Colors.codGray,
+    txtCallingCode: Colors.gray,
+    txtTitleModal: Colors.black,
+    backgroundModal: Colors.whiteSmoke,
+    backgroundInput: Colors.mercury
+}
