@@ -23,6 +23,11 @@ export const CountryPicker = (props) => {
         renderChildren,
         showCountryCode = true,
 
+        countryPickerRef,
+        enable = true,
+        onOpen,
+        onClose,
+
         containerStyle = {},
         modalStyle = {},
 
@@ -37,6 +42,7 @@ export const CountryPicker = (props) => {
 
     useEffect(() => {
         let country = undefined;
+        countryPickerRef && countryPickerRef(countryRef);
 
         if (countryCode) {
             country = dataCountry.filter(item => item.code === countryCode)[0];
@@ -52,6 +58,17 @@ export const CountryPicker = (props) => {
             setCode(code);
         }
     }, [props]);
+
+    const countryRef = {
+        open: () => {
+            setVisible(true);
+            onOpen && onOpen();
+        },
+        close: () => {
+            setVisible(false);
+            onClose && onClose();
+        }
+    }
 
     const getDeviceInfo = () => {
         let countryInfo = {};
@@ -81,8 +98,8 @@ export const CountryPicker = (props) => {
 
     return (
         <View>
-            <TouchableOpacity
-                onPress={() => setVisible(true)}
+            {enable ? <TouchableOpacity
+                onPress={() => { setVisible(true); onOpen && onOpen() }}
                 style={[Styles.justifyContent, container]}
             >
                 {renderChildren ? renderChildren : <View style={{ flexDirection: "row" }}>
@@ -91,13 +108,13 @@ export const CountryPicker = (props) => {
                     {showCountryCode && <Text style={[styles.txtCountryCode, countryCodeStyle]}>{code}</Text>}
                     {showCountryName && <Text style={[styles.txtCountryName, countryNameStyle]}>{countryName}</Text>}
                 </View>}
-            </TouchableOpacity>
+            </TouchableOpacity> : null}
             <Modal
                 visible={visible}
             >
                 <DialogCountry
                     onSelectItem={(data) => { onSelect(data) }}
-                    setVisible={(value) => { setVisible(value) }}
+                    setVisible={(value) => { setVisible(value); onClose && onClose(); }}
                     showCallingCode={showCallingCode}
                     title={title}
                     searchPlaceholder={searchPlaceholder}

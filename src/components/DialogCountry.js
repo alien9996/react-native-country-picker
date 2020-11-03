@@ -37,7 +37,6 @@ export const DialogCountry = (props) => {
     useEffect(() => {
         StatusBar.setHidden(true);
         return () => {
-            setVisible(false);
             setSearch("");
         };
     }, []);
