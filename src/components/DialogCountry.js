@@ -21,11 +21,18 @@ export const DialogCountry = (props) => {
         searchPlaceholder = "Search",
         textEmpty = "Empty data",
         setVisible,
-        darkMode = true
+        darkMode = true,
+        modalStyle,
+        showCloseButton = true,
+        showModalTitle = true
     } = props;
 
     const [search, setSearch] = useState("");
     const [listCountry, setListCountry] = useState(data);
+
+    const { itemStyle = {}, container, searchStyle, tileStyle } = modalStyle;
+
+    const { itemContainer, flagStyle, countryCodeStyle, countryNameStyle, callingNameStyle } = itemStyle;
 
     useEffect(() => {
         StatusBar.setHidden(true);
@@ -69,11 +76,11 @@ export const DialogCountry = (props) => {
 
     const renderItemTemplate = ({ name, emoji, code, callingCode }) => {
         return (
-            <View style={styles.item}>
-                <Text style={styles.flag}>{emoji}</Text>
-                <Text style={styles.currencyName}>{code}</Text>
-                <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}]}>{name}</Text>
-                {showCallingCode && <Text style={styles.commonCallingCode}>{`+${callingCode}`}</Text>}
+            <View style={[styles.item, itemContainer]}>
+                <Text style={[styles.flag, flagStyle]}>{emoji}</Text>
+                <Text style={[styles.currencyName, countryCodeStyle]}>{code}</Text>
+                <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}, countryNameStyle]}>{name}</Text>
+                {showCallingCode && <Text style={[styles.commonCallingCode, callingNameStyle]}>{`+${callingCode}`}</Text>}
             </View>
         );
     }
@@ -106,10 +113,10 @@ export const DialogCountry = (props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, container]}>
             <View style={styles.header}>
-                <Text style={styles.titleModal}>{title}</Text>
-                <TouchableOpacity
+                {showModalTitle && <Text style={[styles.titleModal, tileStyle]}>{title}</Text>}
+                {showCloseButton && <TouchableOpacity
                     onPress={() => {
                         setVisible(false);
                         setSearch("");
@@ -118,10 +125,10 @@ export const DialogCountry = (props) => {
                     }}
                     style={styles.searchClose}>
                     <Text style={styles.btnClose}>X</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
             <View style={styles.search}>
-                <View style={styles.textInputContainer}>
+                <View style={[styles.textInputContainer, searchStyle]}>
                     <TextInput
                         autoFocus
                         onChangeText={(text) => handleFilterChange(text)}

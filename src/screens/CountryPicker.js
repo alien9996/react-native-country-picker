@@ -10,22 +10,30 @@ export const CountryPicker = (props) => {
     const [callingCode, setCallingCode] = useState("1");
     const [flag, setFlag] = useState("🇺🇸");
     const [countryName, setCountryName] = useState("United States");
+    const [code, setCode] = useState("US");
     const [visible, setVisible] = useState(false);
 
     const {
         onSelectCountry,
-        style,
         countryCode,
-        border = false,
         showFlag = true,
         showCallingCode = true,
         showCountryName = true,
         darkMode = true,
+        renderChildren,
+        showCountryCode = true,
+
+        containerStyle = {},
+        modalStyle = {},
 
         title,
         searchPlaceholder,
-        textEmpty
+        textEmpty,
+        showCloseButton = true,
+        showModalTitle = true
     } = props;
+
+    const { container, flagStyle, callingCodeStyle, countryCodeStyle, countryNameStyle } = containerStyle;
 
     useEffect(() => {
         let country = undefined;
@@ -37,9 +45,11 @@ export const CountryPicker = (props) => {
         }
 
         if (country) {
-            setCountryName(country.name)
-            setFlag(country.emoji);
-            setCallingCode(country.callingCode);
+            const { callingCode, emoji, name, code } = country;
+            setCountryName(name)
+            setFlag(emoji);
+            setCallingCode(callingCode);
+            setCode(code);
         }
     }, [props]);
 
@@ -61,24 +71,26 @@ export const CountryPicker = (props) => {
     }
 
     const onSelect = (data) => {
-        const { callingCode, emoji, name } = data;
+        const { callingCode, emoji, name, code } = data;
         setFlag(emoji);
         onSelectCountry && onSelectCountry(data);
         setCallingCode(callingCode ? callingCode : "1");
         setCountryName(name);
+        setCode(code);
     }
 
     return (
         <View>
             <TouchableOpacity
                 onPress={() => setVisible(true)}
-                style={[Styles.justifyContent, border && { borderBottomWidth: 1 }, style]}
+                style={[Styles.justifyContent, container]}
             >
-                <View style={[Styles.justifyContent]}>
-                    {showFlag && <Text style={styles.flagStyle}>{flag}</Text>}
-                    {showCallingCode && <Text style={styles.callingCodeStyle}>+{callingCode}</Text>}
-                    {showCountryName && <Text style={styles.txtCountryName}>{countryName}</Text>}
-                </View>
+                {renderChildren ? renderChildren : <View style={{ flexDirection: "row" }}>
+                    {showFlag && <Text style={[styles.flagStyle, flagStyle]}>{flag}</Text>}
+                    {showCallingCode && <Text style={[styles.callingCodeStyle, callingCodeStyle]}>+{callingCode}</Text>}
+                    {showCountryCode && <Text style={[styles.txtCountryCode, countryCodeStyle]}>{code}</Text>}
+                    {showCountryName && <Text style={[styles.txtCountryName, countryNameStyle]}>{countryName}</Text>}
+                </View>}
             </TouchableOpacity>
             <Modal
                 visible={visible}
@@ -91,6 +103,9 @@ export const CountryPicker = (props) => {
                     searchPlaceholder={searchPlaceholder}
                     textEmpty={textEmpty}
                     darkMode={darkMode}
+                    modalStyle={modalStyle}
+                    showCloseButton={showCloseButton}
+                    showModalTitle={showModalTitle}
                 />
             </Modal>
 
@@ -111,5 +126,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: Colors.black,
         marginLeft: 10
+    },
+    txtCountryCode: {
+        fontSize: 16,
+        color: Colors.black,
+        marginLeft: 10,
+        fontWeight: "600"
     }
 });
