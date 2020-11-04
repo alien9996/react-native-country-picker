@@ -1,13 +1,12 @@
-import {
-    StyleSheet,
-    Platform,
-} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { Styles, ColorDarkMode, ColorLightMode } from "../styles";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 
 export const getStyles = (darkTheme = true) => {
 
     const Colors = darkTheme ? ColorDarkMode : ColorLightMode;
+
+    const marginBottomByPlatform = Platform.OS === "ios" ? 5 : 0;
 
     const styles = StyleSheet.create({
         container: {
@@ -35,27 +34,25 @@ export const getStyles = (darkTheme = true) => {
             textAlign: "center",
             width: 100,
             fontSize: 16,
-            marginBottom: Platform.OS === "ios" ? 5 : 0
+            marginBottom: marginBottomByPlatform
         },
         commonName: {
             color: Colors.txtCountryName,
-            marginBottom: Platform.OS === "ios" ? 5 : 0,
+            marginBottom: marginBottomByPlatform,
             marginHorizontal: 20,
             fontSize: 14
         },
         commonCallingCode: {
             color: Colors.txtCallingCode,
-            marginBottom: Platform.OS === "ios" ? 5 : 0,
+            marginBottom: marginBottomByPlatform,
             marginLeft: 20,
             fontSize: 14,
             flex: 1,
             textAlign: "right"
         },
         search: {
+            ...Styles.justifyCenter,
             height: 40,
-            justifyContent: "center",
-            flexDirection: "row",
-            alignItems: "center",
             paddingHorizontal: 20,
         },
         textInputContainer: {
@@ -84,7 +81,6 @@ export const getStyles = (darkTheme = true) => {
         header: {
             ...Styles.justifyContent,
             alignItems: "center",
-            marginHorizontal: 5,
             marginBottom: 10,
             marginHorizontal: 20
         },

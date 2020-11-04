@@ -125,28 +125,24 @@ export const CountryPicker = (props) => {
                     showModalTitle={showModalTitle}
                 />
             </Modal>
-
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     callingCodeStyle: {
-        fontSize: 16,
-        color: Colors.black
+        ...Styles.fontDefault
     },
     flagStyle: {
         marginRight: 5,
         color: Colors.black
     },
     txtCountryName: {
-        fontSize: 16,
-        color: Colors.black,
+        ...Styles.fontDefault,
         marginLeft: 10
     },
     txtCountryCode: {
-        fontSize: 16,
-        color: Colors.black,
+        ...Styles.fontDefault,
         marginLeft: 10,
         fontWeight: "600"
     }
