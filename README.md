@@ -21,7 +21,7 @@ import CountryPicker from "react-native-region-country-picker";
 
 let countryPickerRef = undefined;
 
-// use currencyPickerRef
+// use countryPickerRef
 countryPickerRef.open();
 countryPickerRef.close();
 
