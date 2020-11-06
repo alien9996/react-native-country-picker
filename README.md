@@ -25,54 +25,50 @@ let countryPickerRef = undefined;
 countryPickerRef.open();
 countryPickerRef.close();
 
-(showFlag = true),
-  (showCallingCode = true),
-  (showCountryName = true),
-  (
-    <CurrencyPicker
-      countryPickerRef={(ref) => {
-        countryPickerRef = ref;
-      }}
-      enable={true}
-      darkMode={false}
-      countryCode={"US"}
-      showFlag={true}
-      showCallingCode={true}
-      showCountryName={true}
-      showCountryCode={true}
-      onSelectCountry={(data) => {
-        console.log("DATA", data);
-      }}
-      onOpen={() => {
-        console.log("Open");
-      }}
-      onClose={() => {
-        console.log("Close");
-      }}
-      containerStyle={{
-        container: {},
+<CurrencyPicker
+    countryPickerRef={(ref) => {
+      countryPickerRef = ref;
+    }}
+    enable={true}
+    darkMode={false}
+    countryCode={"US"}
+    showFlag={true}
+    showCallingCode={true}
+    showCountryName={true}
+    showCountryCode={true}
+    onSelectCountry={(data) => {
+      console.log("DATA", data);
+    }}
+    onOpen={() => {
+      console.log("Open");
+    }}
+    onClose={() => {
+      console.log("Close");
+    }}
+    containerStyle={{
+      container: {},
+      flagStyle: {},
+      callingCodeStyle: {},
+      countryCodeStyle: {},
+      countryNameStyle: {},
+    }}
+    modalStyle={{
+      container: {},
+      searchStyle: {},
+      tileStyle: {},
+      itemStyle: {
+        itemContainer: {},
         flagStyle: {},
-        callingCodeStyle: {},
         countryCodeStyle: {},
         countryNameStyle: {},
-      }}
-      modalStyle={{
-        container: {},
-        searchStyle: {},
-        tileStyle: {},
-        itemStyle: {
-          itemContainer: {},
-          flagStyle: {},
-          countryCodeStyle: {},
-          countryNameStyle: {},
-          callingNameStyle: {},
-        },
-      }}
-      title={"Country"}
-      searchPlaceholder={"Search"}
-      showCloseButton={true}
-      showModalTitle={true}
-    />
+        callingNameStyle: {},
+      },
+    }}
+    title={"Country"}
+    searchPlaceholder={"Search"}
+    showCloseButton={true}
+    showModalTitle={true}
+/>
   );
 ```
 
