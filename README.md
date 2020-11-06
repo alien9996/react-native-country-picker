@@ -17,36 +17,105 @@ OR
 ## Example
 
 ```javascript
-import RNImageFilter from "react-native-image-filter";
+import CountryPicker from "react-native-region-country-picker";
 
-RNImageFilter.getSourceImage(
-  {
-    imageSource: "/storage/emulated/0/Download/img2-0.jpg",
-    dataType: "Path",
-    filterType: 1,
-  },
-  (source) => {
-    this.setState((imgBase64: source.base64));
-    console.log("SOURCE", source);
-    // source returns the height, width and the Base64 string of the image.
-  }
-);
+let countryPickerRef = undefined;
+
+// use currencyPickerRef
+countryPickerRef.open();
+countryPickerRef.close();
+
+(showFlag = true),
+  (showCallingCode = true),
+  (showCountryName = true),
+  (
+    <CurrencyPicker
+      countryPickerRef={(ref) => {
+        countryPickerRef = ref;
+      }}
+      enable={true}
+      darkMode={false}
+      countryCode={"US"}
+      showFlag={true}
+      showCallingCode={true}
+      showCountryName={true}
+      showCountryCode={true}
+      onSelectCountry={(data) => {
+        console.log("DATA", data);
+      }}
+      containerStyle={{
+        container: {},
+        flagStyle: {},
+        callingCodeStyle: {},
+        countryCodeStyle: {},
+        countryNameStyle: {},
+      }}
+      modalStyle={{
+        container: {},
+        searchStyle: {},
+        tileStyle: {},
+        itemStyle: {
+          itemContainer: {},
+          flagStyle: {},
+          countryCodeStyle: {},
+          countryNameStyle: {},
+          callingNameStyle: {},
+        },
+      }}
+      title={"Country"}
+      searchPlaceholder={"Search"}
+      showCloseButton={true}
+      showModalTitle={true}
+    />
+  );
 ```
 
 ## Options
 
-| Props                | Default | Options/Info                                                                                                                                                           |
-| -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| imageSource (String) | null    | The path to the image in the device or a Base64 string.                                                                                                                |
-| dataType (String)    | Path    | If you send a path, enter the string "Path"<br>If you send a Base64 string, enter the string "Base64".                                                                 |
-| filterType (int)     | 0       | Select the type you want to filter images, the values from 0 to 21. Other values around 0 to 21 will not take effect.<br> **Note**: Valid only when dataType = "Path". |
+| Props                       | Default   | Options/Info                                                                             |
+| --------------------------- | --------- | ---------------------------------------------------------------------------------------- |
+| enable (Boolean)            | true      | Show component that choose the country.                                                  |
+| countryPickerRef (Function) | null      | Get the open() and close() modal methods.                                                |
+| darkMode (Boolean)          | true      | Dark mode for country modal.                                                             |
+| countryCode (String)        | US        | Country code displayed is selected at start.                                             |
+| onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country. |
+| showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
+| showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
+| showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
+| title (String)              | "Country" | The title of the modal select country.                                                   |
+| showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
+| showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
+| containerStyle (Object)     | null      | Style for component that choose the country. <br> **Note**: See more details below.      |
+| modalStyle (Object)         | null      | Style for modal select country. <br> **Note**: See more details below.                   |
+| renderChildren (Component)  | null      | The child component replaces the component element of the library                        |
 
-## Filter types
+## containerStyle
 
-![filterType](https://github.com/alien9996/ReactNativeImageFilter/blob/master/filter_type.png?raw=true)
+| Props                     | Default | Options/Info                   |
+| ------------------------- | ------- | ------------------------------ |
+| container (Object)        | style   | Style for component container. |
+| flagStyle (Object)        | style   | Style for the icon country.    |
+| callingCodeStyle (Object) | style   | Style for country code.        |
+| countryNameStyle (Object) | style   | Style for country name.        |
+| countryCodeStyle (Object) | style   | Style for country code.        |
 
-## Note
+## modalStyle
 
-- The image path you send into **imageSource:''** must be the absolute path. If you have problems with the absolute path, you can find the solution [here](https://stackoverflow.com/questions/52423067/how-to-get-absolute-path-of-a-file-in-react-native).
+| Props                | Default | Options/Info                                                         |
+| -------------------- | ------- | -------------------------------------------------------------------- |
+| container (Object)   | style   | Style for modal container                                            |
+| searchStyle (Object) | style   | Style for modal search input                                         |
+| tileStyle (Object)   | style   | Style for modal title                                                |
+| itemStyle (Object)   | style   | Style for item select country <br> **Note**: See more details below. |
+
+## itemStyle
+
+| Props                     | Default | Options/Info                     |
+| ------------------------- | ------- | -------------------------------- |
+| itemContainer (Object)    | style   | Style for item country container |
+| flagStyle (Object)        | style   | Style for the icon country.      |
+| callingCodeStyle (Object) | style   | Style for country code.          |
+| countryNameStyle (Object) | style   | Style for country name.          |
+| countryCodeStyle (Object) | style   | Style for country code.          |
 
 ### Thank you for your interest!
