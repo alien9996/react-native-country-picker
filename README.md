@@ -90,6 +90,7 @@ countryPickerRef.close();
 | showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
 | showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
 | showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
+| showFlag (Boolean)          | true      | Show the flag of the country.   |
 | title (String)              | "Country" | The title of the modal select country.                                                   |
 | showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
 | showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
