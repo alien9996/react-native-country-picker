@@ -43,6 +43,12 @@ countryPickerRef.close();
       onSelectCountry={(data) => {
         console.log("DATA", data);
       }}
+      onOpen={() => {
+        console.log("Open");
+      }}
+      onClose={() => {
+        console.log("Close");
+      }}
       containerStyle={{
         container: {},
         flagStyle: {},
@@ -79,6 +85,8 @@ countryPickerRef.close();
 | darkMode (Boolean)          | true      | Dark mode for country modal.                                                             |
 | countryCode (String)        | US        | Country code displayed is selected at start.                                             |
 | onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country. |
+| onOpen (Function)           | null      | Called when the open modal.                                                              |
+| onClose (Function)          | null      | Called when the close modal.                                                             |
 | showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
 | showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
 | showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
