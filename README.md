@@ -4,7 +4,7 @@
 
 ## Demo
 
-![gif](https://github.com/alien9996/ReactNativeImageFilter/blob/master/filter.gif?raw=true)
+![gif](https://github.com/alien9996/library-gif/blob/main/country_gif.gif?raw=true)
 
 ## Getting started
 
