@@ -4,7 +4,7 @@
 
 ## Demo
 
-![gif](https://github.com/alien9996/ReactNativeImageFilter/blob/master/filter.gif?raw=true)
+<img src="https://github.com/alien9996/library-gif/blob/main/country_gif.gif?raw=true" width="350">
 
 ## Getting started
 
@@ -25,6 +25,7 @@ let countryPickerRef = undefined;
 countryPickerRef.open();
 countryPickerRef.close();
 
+<<<<<<< HEAD
 (showFlag = true),
   (showCallingCode = true),
   (showCountryName = true),
@@ -51,28 +52,52 @@ countryPickerRef.close();
       }}
       containerStyle={{
         container: {},
+=======
+<CurrencyPicker
+    countryPickerRef={(ref) => {
+      countryPickerRef = ref;
+    }}
+    enable={true}
+    darkMode={false}
+    countryCode={"US"}
+    showFlag={true}
+    showCallingCode={true}
+    showCountryName={true}
+    showCountryCode={true}
+    onSelectCountry={(data) => {
+      console.log("DATA", data);
+    }}
+    onOpen={() => {
+      console.log("Open");
+    }}
+    onClose={() => {
+      console.log("Close");
+    }}
+    containerStyle={{
+      container: {},
+      flagStyle: {},
+      callingCodeStyle: {},
+      countryCodeStyle: {},
+      countryNameStyle: {},
+    }}
+    modalStyle={{
+      container: {},
+      searchStyle: {},
+      tileStyle: {},
+      itemStyle: {
+        itemContainer: {},
+>>>>>>> e8ff2d8a38ac15587105be0c2d6e505b62aaed7b
         flagStyle: {},
-        callingCodeStyle: {},
         countryCodeStyle: {},
         countryNameStyle: {},
-      }}
-      modalStyle={{
-        container: {},
-        searchStyle: {},
-        tileStyle: {},
-        itemStyle: {
-          itemContainer: {},
-          flagStyle: {},
-          countryCodeStyle: {},
-          countryNameStyle: {},
-          callingNameStyle: {},
-        },
-      }}
-      title={"Country"}
-      searchPlaceholder={"Search"}
-      showCloseButton={true}
-      showModalTitle={true}
-    />
+        callingNameStyle: {},
+      },
+    }}
+    title={"Country"}
+    searchPlaceholder={"Search"}
+    showCloseButton={true}
+    showModalTitle={true}
+/>
   );
 ```
 
@@ -90,6 +115,7 @@ countryPickerRef.close();
 | showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
 | showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
 | showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
+| showFlag (Boolean)          | true      | Show the flag of the country.   |
 | title (String)              | "Country" | The title of the modal select country.                                                   |
 | showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
 | showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
