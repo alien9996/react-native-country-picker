@@ -25,80 +25,58 @@ let countryPickerRef = undefined;
 countryPickerRef.open();
 countryPickerRef.close();
 
-<<<<<<< HEAD
-(showFlag = true),
-  (showCallingCode = true),
-  (showCountryName = true),
-  (
-    <CountryPicker
-      countryPickerRef={(ref) => {
-        countryPickerRef = ref;
-      }}
-      enable={true}
-      darkMode={false}
-      countryCode={"US"}
-      showFlag={true}
-      showCallingCode={true}
-      showCountryName={true}
-      showCountryCode={true}
-      onSelectCountry={(data) => {
-        console.log("DATA", data);
-      }}
-      onOpen={() => {
-        console.log("Open");
-      }}
-      onClose={() => {
-        console.log("Close");
-      }}
-      containerStyle={{
-        container: {},
-=======
-<CurrencyPicker
-    countryPickerRef={(ref) => {
-      countryPickerRef = ref;
-    }}
-    enable={true}
-    darkMode={false}
-    countryCode={"US"}
-    showFlag={true}
-    showCallingCode={true}
-    showCountryName={true}
-    showCountryCode={true}
-    onSelectCountry={(data) => {
-      console.log("DATA", data);
-    }}
-    onOpen={() => {
-      console.log("Open");
-    }}
-    onClose={() => {
-      console.log("Close");
-    }}
-    containerStyle={{
-      container: {},
+<CountryPicker
+  countryPickerRef={(ref: any) => {
+    countryPickerRef = ref;
+  }}
+  enable={true}
+  darkMode={false}
+  countryCode={"US"}
+  containerConfig={{
+    showFlag: true,
+    showCallingCode: true,
+    showCountryName: true,
+    showCountryCode: true,
+  }}
+  modalConfig={{
+    showFlag: true,
+    showCallingCode: true,
+    showCountryName: true,
+    showCountryCode: true,
+  }}
+  onSelectCountry={(data: any) => {
+    console.log("DATA", data);
+  }}
+  onOpen={() => {
+    console.log("Open");
+  }}
+  onClose={() => {
+    console.log("Close");
+  }}
+  containerStyle={{
+    container: {},
+    flagStyle: {},
+    callingCodeStyle: {},
+    countryCodeStyle: {},
+    countryNameStyle: {},
+  }}
+  modalStyle={{
+    container: {},
+    searchStyle: {},
+    tileStyle: {},
+    itemStyle: {
+      itemContainer: {},
       flagStyle: {},
-      callingCodeStyle: {},
       countryCodeStyle: {},
       countryNameStyle: {},
-    }}
-    modalStyle={{
-      container: {},
-      searchStyle: {},
-      tileStyle: {},
-      itemStyle: {
-        itemContainer: {},
->>>>>>> e8ff2d8a38ac15587105be0c2d6e505b62aaed7b
-        flagStyle: {},
-        countryCodeStyle: {},
-        countryNameStyle: {},
-        callingNameStyle: {},
-      },
-    }}
-    title={"Country"}
-    searchPlaceholder={"Search"}
-    showCloseButton={true}
-    showModalTitle={true}
-/>
-  );
+      callingNameStyle: {},
+    },
+  }}
+  title={"Country"}
+  searchPlaceholder={"Search"}
+  showCloseButton={true}
+  showModalTitle={true}
+/>;
 ```
 
 ## Options
@@ -109,13 +87,11 @@ countryPickerRef.close();
 | countryPickerRef (Function) | null      | Get the open() and close() modal methods.                                                |
 | darkMode (Boolean)          | true      | Dark mode for country modal.                                                             |
 | countryCode (String)        | US        | Country code displayed is selected at start.                                             |
+| modalConfig (Object)        | US        | Config for component that choose the country. <br> **Note**: See more details below.     |
+| containerConfig (Object)    | US        | Config for component that choose the country. <br> **Note**: See more details below.     |
 | onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country. |
 | onOpen (Function)           | null      | Called when the open modal.                                                              |
 | onClose (Function)          | null      | Called when the close modal.                                                             |
-| showCallingCode (Boolean)   | true      | Show the calling code of the country.                                                    |
-| showCountryName (Boolean)   | true      | Show the name of the country.                                                            |
-| showCountryCode (Boolean)   | true      | Show the code of the country.                                                            |
-| showFlag (Boolean)          | true      | Show the flag of the country.   |
 | title (String)              | "Country" | The title of the modal select country.                                                   |
 | showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
 | showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
@@ -132,6 +108,15 @@ countryPickerRef.close();
 | callingCodeStyle (Object) | style   | Style for country code.        |
 | countryNameStyle (Object) | style   | Style for country name.        |
 | countryCodeStyle (Object) | style   | Style for country code.        |
+
+## modalConfig && containerConfig
+
+| Props                     | Default | Options/Info            |
+| ------------------------- | ------- | ----------------------- |
+| showFlag (Boolean)        | true    | Show/hide Flag.         |
+| showCallingCode (Boolean) | true    | Show/hide Calling Code. |
+| showCountryName (Boolean) | true    | Show/hide Country Name. |
+| showCountryCode (Boolean) | true    | Show/hide Country Code. |
 
 ## modalStyle
 
