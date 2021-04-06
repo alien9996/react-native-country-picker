@@ -16,7 +16,6 @@ export const DialogCountry = (props) => {
 
     const {
         onSelectItem,
-        showCallingCode = true,
         title = "Country",
         searchPlaceholder = "Search",
         textEmpty = "Empty data",
@@ -24,13 +23,15 @@ export const DialogCountry = (props) => {
         darkMode = true,
         modalStyle,
         showCloseButton = true,
-        showModalTitle = true
+        showModalTitle = true,
+        modalConfig = {}
     } = props;
 
     const [search, setSearch] = useState("");
     const [listCountry, setListCountry] = useState(data);
 
     const { itemStyle = {}, container, searchStyle, tileStyle } = modalStyle;
+    const { showFlag = true, showCallingCode = true, showCountryName = true, showCountryCode = true, } = modalConfig;
 
     const { itemContainer, flagStyle, countryCodeStyle, countryNameStyle, callingNameStyle } = itemStyle;
 
@@ -76,9 +77,9 @@ export const DialogCountry = (props) => {
     const renderItemTemplate = ({ name, emoji, code, callingCode }) => {
         return (
             <View style={[styles.item, itemContainer]}>
-                <Text style={[styles.flag, flagStyle]}>{emoji}</Text>
-                <Text style={[styles.currencyName, countryCodeStyle]}>{code}</Text>
-                <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}, countryNameStyle]}>{name}</Text>
+                {showFlag && <Text style={[styles.flag, flagStyle]}>{emoji}</Text>}
+                {showCountryCode && <Text style={[styles.currencyName, countryCodeStyle]}>{code}</Text>}
+                {showCountryName && <Text style={[styles.commonName, showCallingCode ? { width: 120 } : {}, countryNameStyle]}>{name}</Text>}
                 {showCallingCode && <Text style={[styles.commonCallingCode, callingNameStyle]}>{`+${callingCode}`}</Text>}
             </View>
         );

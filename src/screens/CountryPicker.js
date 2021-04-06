@@ -16,12 +16,12 @@ export const CountryPicker = (props) => {
     const {
         onSelectCountry,
         countryCode,
-        showFlag = true,
-        showCallingCode = true,
-        showCountryName = true,
+
+        containerConfig = {},
+        modalConfig = {},
+
         darkMode = true,
         renderChildren,
-        showCountryCode = true,
 
         countryPickerRef,
         enable = true,
@@ -39,6 +39,7 @@ export const CountryPicker = (props) => {
     } = props;
 
     const { container, flagStyle, callingCodeStyle, countryCodeStyle, countryNameStyle } = containerStyle;
+    const { showFlag = true, showCallingCode = true, showCountryName = true, showCountryCode = true, } = containerConfig;
 
     useEffect(() => {
         let country = undefined;
@@ -115,7 +116,6 @@ export const CountryPicker = (props) => {
                 <DialogCountry
                     onSelectItem={(data) => { onSelect(data) }}
                     setVisible={(value) => { setVisible(value); onClose && onClose(); }}
-                    showCallingCode={showCallingCode}
                     title={title}
                     searchPlaceholder={searchPlaceholder}
                     textEmpty={textEmpty}
@@ -123,6 +123,7 @@ export const CountryPicker = (props) => {
                     modalStyle={modalStyle}
                     showCloseButton={showCloseButton}
                     showModalTitle={showModalTitle}
+                    modalConfig={modalConfig}
                 />
             </Modal>
         </View>

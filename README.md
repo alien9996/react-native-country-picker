@@ -29,7 +29,7 @@ countryPickerRef.close();
   (showCallingCode = true),
   (showCountryName = true),
   (
-    <CurrencyPicker
+    <CountryPicker
       countryPickerRef={(ref) => {
         countryPickerRef = ref;
       }}
