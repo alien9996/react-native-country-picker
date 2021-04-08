@@ -15,6 +15,7 @@ export const CountryPicker = (props) => {
 
     const {
         onSelectCountry,
+        onInit,
         countryCode,
 
         containerConfig = {},
@@ -78,14 +79,17 @@ export const CountryPicker = (props) => {
             countryInfo = dataCountry.filter(item => item.code === deviceCountry)[0];
         };
 
-        if (countryInfo) return countryInfo;
-        else return {
-            code: "US",
-            unicode: "U+1F1FA U+1F1F8",
-            name: "United States",
-            emoji: "🇺🇸",
-            callingCode: "1",
-        }
+        if (!countryInfo)
+            countryInfo = {
+                code: "US",
+                unicode: "U+1F1FA U+1F1F8",
+                name: "United States",
+                emoji: "🇺🇸",
+                callingCode: "1",
+            };
+
+        onInit && onInit(countryInfo);
+        return countryInfo;
     }
 
     const onSelect = (data) => {
