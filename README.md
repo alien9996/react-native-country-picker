@@ -47,6 +47,9 @@ countryPickerRef.close();
   onSelectCountry={(data: any) => {
     console.log("DATA", data);
   }}
+  onInit={(data: any) => {
+    console.log("DATA", data);
+  }}
   onOpen={() => {
     console.log("Open");
   }}
@@ -81,23 +84,24 @@ countryPickerRef.close();
 
 ## Options
 
-| Props                       | Default   | Options/Info                                                                             |
-| --------------------------- | --------- | ---------------------------------------------------------------------------------------- |
-| enable (Boolean)            | true      | Show component that choose the country.                                                  |
-| countryPickerRef (Function) | null      | Get the open() and close() modal methods.                                                |
-| darkMode (Boolean)          | true      | Dark mode for country modal.                                                             |
-| countryCode (String)        | US        | Country code displayed is selected at start.                                             |
-| modalConfig (Object)        | US        | Config for component that choose the country. <br> **Note**: See more details below.     |
-| containerConfig (Object)    | US        | Config for component that choose the country. <br> **Note**: See more details below.     |
-| onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country. |
-| onOpen (Function)           | null      | Called when the open modal.                                                              |
-| onClose (Function)          | null      | Called when the close modal.                                                             |
-| title (String)              | "Country" | The title of the modal select country.                                                   |
-| showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                       |
-| showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                              |
-| containerStyle (Object)     | null      | Style for component that choose the country. <br> **Note**: See more details below.      |
-| modalStyle (Object)         | null      | Style for modal select country. <br> **Note**: See more details below.                   |
-| renderChildren (Component)  | null      | The child component replaces the component element of the library                        |
+| Props                       | Default   | Options/Info                                                                                    |
+| --------------------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| enable (Boolean)            | true      | Show component that choose the country.                                                         |
+| countryPickerRef (Function) | null      | Get the open() and close() modal methods.                                                       |
+| darkMode (Boolean)          | true      | Dark mode for country modal.                                                                    |
+| countryCode (String)        | US        | Country code displayed is selected at start.                                                    |
+| modalConfig (Object)        | US        | Config for component that choose the country. <br> **Note**: See more details below.            |
+| containerConfig (Object)    | US        | Config for component that choose the country. <br> **Note**: See more details below.            |
+| onSelectCountry (Function)  | null      | Called when the user chooses a country and returns information for the selected country.        |
+| onInit (Function)           | null      | Called when the component set default country and returns information for the selected country. |
+| onOpen (Function)           | null      | Called when the open modal.                                                                     |
+| onClose (Function)          | null      | Called when the close modal.                                                                    |
+| title (String)              | "Country" | The title of the modal select country.                                                          |
+| showCloseButton (Boolean)   | true      | Show the close button of the modal select country.                                              |
+| showModalTitle (Boolean)    | true      | Show the title of the modal select country.                                                     |
+| containerStyle (Object)     | null      | Style for component that choose the country. <br> **Note**: See more details below.             |
+| modalStyle (Object)         | null      | Style for modal select country. <br> **Note**: See more details below.                          |
+| renderChildren (Component)  | null      | The child component replaces the component element of the library                               |
 
 ## containerStyle
 
